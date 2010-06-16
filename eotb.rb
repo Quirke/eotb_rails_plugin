@@ -4,8 +4,8 @@ class Eotb
     @array = []
   end
   
-  def register_event
-    @array
+  def register_event(actor, action, subject)
+    @array << actor << action << subject
   end
   
 end
