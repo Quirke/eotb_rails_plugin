@@ -1,4 +1,4 @@
-= eotb-gem
+= eotb
 
 Description goes here.
 
@@ -14,4 +14,4 @@ Description goes here.
 
 == Copyright
 
-Copyright (c) 2010 Justyna Post. See LICENSE for details.
+Copyright (c) 2010 Ragnarson. See LICENSE for details.
