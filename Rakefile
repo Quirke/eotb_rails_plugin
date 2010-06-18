@@ -10,9 +10,8 @@ begin
     gem.email = "justyna.post@ragnarson.com"
     gem.homepage = "http://github.com/Quirke/eotb_rails_plugin"
     gem.authors = ["Bartlomiej Kozal", "Pawel Placzynski", "Justyna Post", "Sebastian Wojtczak"]
-    gem.add_development_dependency "thoughtbot-shoulda", ">= 0"
-    # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
+
   Jeweler::GemcutterTasks.new
 rescue LoadError
   puts "Jeweler (or a dependency) not available. Install it with: gem install jeweler"
