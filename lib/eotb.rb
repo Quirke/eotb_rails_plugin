@@ -1,11 +1,17 @@
+require 'json/pure'
+
 class Eotb
   
   def initialize
     @array = []
   end
   
-  def register_event
-    true
+  def to_json
+    JSON.generate(@array)
+  end
+  
+  def register_event(actor = :user, action = :no_action, subject = {})
+    @array << actor << action << subject
   end
   
 end

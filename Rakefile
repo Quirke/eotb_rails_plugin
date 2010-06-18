@@ -10,6 +10,7 @@ begin
     gem.email = "justyna.post@ragnarson.com"
     gem.homepage = "http://github.com/Quirke/eotb_rails_plugin"
     gem.authors = ["Bartlomiej Kozal", "Pawel Placzynski", "Justyna Post", "Sebastian Wojtczak"]
+    gem.add_dependency('json_pure', '>= 1.4.3')
   end
 
   Jeweler::GemcutterTasks.new
