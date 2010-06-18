@@ -1,4 +1,4 @@
-require './eotb'
+require '../lib/eotb-gem'
 
 describe Eotb do
   
