@@ -5,12 +5,13 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "eotb"
-    gem.summary = "one-line summary of your gem"
-    gem.description = "longer description of your gem"
-    gem.email = "justyna.post@ragnarson.com"
+    gem.summary = "Rails plugin which allow you easily track and observe your apps"
+    gem.description = "Rails plugin which allow you easily track and observe your apps"
+    gem.email = "bartlomiej.kozal@ragnarson.com"
     gem.homepage = "http://github.com/Quirke/eotb_rails_plugin"
     gem.authors = ["Bartlomiej Kozal", "Pawel Placzynski", "Justyna Post", "Sebastian Wojtczak"]
-    gem.add_dependency('json_pure', '>= 1.4.3')
+    gem.add_development_dependency "rspec", ">= 1.3.0"
+    gem.add_dependency "json", ">= 1.4.3"
   end
 
   Jeweler::GemcutterTasks.new
