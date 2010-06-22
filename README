@@ -1,0 +1,17 @@
+EotB Gem
+========
+Rails plugin which allow you easily track and observe your apps.
+
+Installation
+------------
+$ gem install eotb
+
+Using in your apps
+------------------
+require 'eotb'
+@eotb = new.Eotb(:api_key)
+@eotb.register_event(:user, :do_sth, { :user_name => "Vuvuzela" })
+ 
+Copyright
+=========
+Copyright (c) 2010 Ragnarson. See LICENSE for details.
