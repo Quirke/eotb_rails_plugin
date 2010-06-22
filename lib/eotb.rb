@@ -3,7 +3,9 @@ require 'net/http'
 
 class Eotb
   
-  def initialize
+  def initialize(api_key, host = '127.0.0.1:3000')
+    @api_key = api_key
+    @host = host
     @array = []
   end
   
@@ -14,6 +16,7 @@ class Eotb
   def register_event(actor, action, subject)
     @array << actor << action << subject
     @array.to_json
+    # @array.clear
   end
   
 end
