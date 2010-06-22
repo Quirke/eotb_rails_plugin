@@ -1,4 +1,5 @@
 require 'json'
+require 'net/http'
 
 class Eotb
   
@@ -10,7 +11,7 @@ class Eotb
     JSON.generate(@array)
   end
   
-  def register_event(actor = :user, action = :no_action, subject = {})
+  def register_event(actor, action, subject)
     @array << actor << action << subject
   end
   
