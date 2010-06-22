@@ -4,15 +4,10 @@ describe Eotb do
   
   context "register_event method" do
     
-    before(:each) do
-      @eotb = Eotb.new.register_event(:current_user, :bought_membership, { :user_id => 10, :user_name => "Noname" })
+    it "should return json" do
+      subject = { :user_id => 10, :user_name => "Noname" }
+      Eotb.new.register_event(:current_user, :bought_membership, subject).should eql JSON.generate([:current_user, :bought_membership, subject])
     end
-    
-    it "should get three arguments (actor, action, subject)"
-    
-    it "subject should be a hash or a symbol"
-    
-    it "should return json" 
     
   end
   
