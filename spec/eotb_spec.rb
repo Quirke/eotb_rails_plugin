@@ -2,17 +2,21 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe Eotb do
   
-  it "should check connection status" do
-    eotb = Eotb.new('0')
-    response = Net::HTTP.new(eotb.host, eotb.port).get('/')
-    response.code.should eql('200')
+  before(:each) do
+    @eotb = Eotb.new('0')
+    @data = [:actor, :action, {:username => 'Vuvuzela'}]
   end
   
-  it "should return data in json" do
-    actor = :actor
-    action = :action
-    data = {:username => 'Vuvuzela'}
-    Eotb.new('0').register_event(actor, action, data).should eql(JSON.generate([actor, action, data]))
+  it "should check connection status" do
+    @eotb.http.get('/').code.should eql('200')
+  end
+  
+  it "should have data in json" do
+    @eotb.to_json(@data).should eql(JSON.generate(@data))
+  end
+  
+  it "should post data in json" do
+    @eotb.register_event(@data[0], @data[1], @data[2]).code.should eql('200')
   end
   
 end

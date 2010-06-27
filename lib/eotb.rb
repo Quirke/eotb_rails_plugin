@@ -4,25 +4,19 @@ require 'json'
 
 class Eotb
   
-  attr_accessor :api_key, :host, :port
+  attr_reader :http
   
   def initialize(api_key, host = '127.0.0.1', port = '3000')
-    @api_key = api_key
-    @host = host
-    @port = port
-  end
-  
-  def set_connection
-    http = Net::HTTP.new(host, port)
-    path = '/apps/' + api_key.to_s + '/events'
+    @path = '/apps/' + api_key.to_s + '/events'
+    @http = Net::HTTP.new(host, port)
   end
   
   def to_json(array)
     JSON.generate(array)
   end
   
-  def register_event(actor, action, subject)
-    [actor, action, subject].to_json
+  def register_event(actor, action, subject = nil)
+    @http.post(@path, [actor, action, subject].compact.to_json)
   end
   
 end
