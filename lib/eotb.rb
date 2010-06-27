@@ -1,22 +1,27 @@
-require 'json'
 require 'net/http'
+require 'rubygems'
+require 'json'
 
 class Eotb
+  
+  attr_accessor :api_key, :host
   
   def initialize(api_key, host = '127.0.0.1:3000')
     @api_key = api_key
     @host = host
-    @array = []
   end
   
-  def to_json(array = @array)
+  def set_connection
+    http = Net::HTTP.new(host)
+    path = '/apps/' + api_key.to_s + '/events'
+  end
+  
+  def to_json(array)
     JSON.generate(array)
   end
   
   def register_event(actor, action, subject)
-    @array << actor << action << subject
-    @array.to_json
-    # @array.clear
+    [actor, action, subject].to_json
   end
   
 end
