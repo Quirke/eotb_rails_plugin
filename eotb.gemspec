@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{eotb}
-  s.version = "0.0.2"
+  s.version = "0.1.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Ragnarson"]
-  s.date = %q{2010-06-22}
+  s.date = %q{2010-06-27}
   s.description = %q{Rails plugin which allow you easily track and observe your apps}
   s.email = %q{bartlomiej.kozal@ragnarson.com}
   s.extra_rdoc_files = [
@@ -22,6 +22,7 @@ Gem::Specification.new do |s|
      ".gitignore",
      "Gemfile",
      "LICENSE",
+     "README",
      "Rakefile",
      "VERSION",
      "eotb.gemspec",
