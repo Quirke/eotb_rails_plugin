@@ -2,21 +2,13 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe Eotb do
   
-  context "register_event method" do
-    
-    it "should return json" do
-      subject = { :user_id => 10, :user_name => "Noname" }
-      Eotb.new.register_event(:current_user, :bought_membership, subject).should eql JSON.generate([:current_user, :bought_membership, subject])
-    end
-    
-  end
+  it "should check connection status" 
   
-  context "connection with app" do
-    
-    it "should set connection"
-    
-    it "should send json by POST to app"
-    
+  it "should return data in json" do
+    actor = :actor
+    action = :action
+    data = {:username => 'Vuvuzela'}
+    Eotb.new('0').register_event(actor, action, data).should eql(JSON.generate([actor, action, data]))
   end
   
 end
