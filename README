@@ -3,14 +3,27 @@ EotB Gem
 Rails plugin which allow you easily track and observe your apps.
 
 Installation
-------------
+------------------
+Install gem in traditional way:
+
 $ gem install eotb
+
+or add this line to Gemfile in your rails application:
+
+gem 'eotb'
+
+Getting API KEY:
+------------------
+Register your application on EOTB site by clicking "New application" and giving application name in text field.
+As a result you will get API KEY of your application.
+
 
 Using in your apps
 ------------------
-require 'eotb'
-eotb = new.Eotb("your_api_key", "host", "port") # default host and port are 127.0.0.1 and 3000 
-eotb.register_event(:user, :do_sth, { :user_name => "Vuvuzela" })
+Add file eotb.rb in directory config/initializers of your rails application with content:
+
+Eotb.configure("your_API KEY", "host", "port") # default host and port are 127.0.0.1 and 3000 
+Eotb.register_event(:user, :do_sth, { :user_name => "Vuvuzela" })
 
 Copyright
 =========
