@@ -4,6 +4,7 @@ describe Eotb do
   
   before(:each) do
     @eotb = Eotb.new('0')
+    @eotb.configure('127.0.0.1', '3000')
     @data = [:actor, :action, {:username => 'Vuvuzela'}]
   end
   

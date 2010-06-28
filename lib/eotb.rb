@@ -6,8 +6,11 @@ class Eotb
   
   attr_reader :http
   
-  def initialize(api_key, host = '127.0.0.1', port = '3000')
+  def initialize(api_key)
     @path = '/apps/' + api_key.to_s + '/events'
+  end
+  
+  def configure(host = '127.0.0.1', port = '3000')
     @http = Net::HTTP.new(host, port)
   end
   
