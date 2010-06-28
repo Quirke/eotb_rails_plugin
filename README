@@ -12,6 +12,10 @@ or add this line to Gemfile in your rails application:
 
 gem 'eotb'
 
+and run
+
+$ bundle install
+
 Getting API KEY:
 ------------------
 Register your application on EOTB site by clicking "New application" and giving application name in text field.
