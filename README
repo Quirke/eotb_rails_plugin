@@ -17,7 +17,6 @@ Getting API KEY:
 Register your application on EOTB site by clicking "New application" and giving application name in text field.
 As a result you will get API KEY of your application.
 
-
 Using in your apps
 ------------------
 Add file eotb.rb in directory config/initializers of your rails application with content:
