@@ -3,12 +3,9 @@ require 'rubygems'
 require 'json'
 
 class Eotb
-  
-  def initialize(api_key)
-    @@path = '/apps/' + api_key.to_s + '/events'
-  end
     
-  def self.configure(host = '127.0.0.1', port = '3000')
+  def self.configure(api_key, host = '127.0.0.1', port = '3000')
+    @@path = '/apps/' + api_key.to_s + '/events'
     @@http = Net::HTTP.new(host, port)
   end
   

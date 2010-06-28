@@ -8,8 +8,8 @@ $ gem install eotb
 
 Using in your apps
 ------------------
-eotb = Eotb.new("your_api_key", "host", "port") # default host and port are 127.0.0.1 and 3000 
-eotb.register_event(:user, :did_sth, { :user_name => "Vuvuzela" })
+Eotb.new("your_api_key", "host", "port") # default host and port are 127.0.0.1 and 3000 
+Eotb.register_event(:user, :did_sth, { :user_name => "Vuvuzela" })
 
 Copyright
 =========
