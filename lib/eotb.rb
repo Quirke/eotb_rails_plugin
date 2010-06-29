@@ -11,13 +11,17 @@ class Eotb
     @@api_key = api_key
   end
   
-  def to_json(array)
-    JSON.generate(array)
+  def self.register_event(actor, action, subject)
+    to_post = { "event[app_id]" => @@api_key, "event[actor][type]" => actor, "event[action]" => action }
+    subject.each do |key, value|
+      to_post["event[subject][#{key.to_s}]"] = value.to_s
+    end
+    @@http.set_form_data(to_post)
+    Net::HTTP.new(@@uri.host, @@uri.port).start { |http| http.request(@@http) }
   end
   
-  def self.register_event(actor, action, subject)
-    @@http.set_form_data({"event[actor][name]" => actor, "event[action]" => action, "event[subject][name]" => subject, "event[app_id]" => @@api_key}, ';')
-    Net::HTTP.new(@@uri.host, @@uri.port).start { |http| http.request(@@http) }
+  def to_json(array)
+    JSON.generate(array)
   end
   
 end
