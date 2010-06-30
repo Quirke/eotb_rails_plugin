@@ -32,6 +32,7 @@ Using in your apps
 ------------------
 Add file eotb.rb in directory config/initializers of your rails application with content:
 
+require 'Eotb'
 Eotb.configure("your_api_key", "host", "port") # default host and port are 127.0.0.1 and 3000
 
 Register events by:
