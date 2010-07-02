@@ -3,6 +3,7 @@ require 'net/http'
 require 'uri'
 require 'json'
 
+require File.expand_path(File.dirname(__FILE__) + '/object')
 require File.expand_path(File.dirname(__FILE__) + '/actor')
 require File.expand_path(File.dirname(__FILE__) + '/subject')
 
@@ -15,15 +16,10 @@ class Eotb
   end
   
   def self.register_event(actor, action, subject)
-    to_post = {
-      "event[app_id]" => @@api_key, 
-      "event[actor][type]" => actor, 
-      "event[action]" => action }
-    
-    subject.each do |key, value|
-      to_post["event[subject][#{key.to_s}]"] = value.to_s
-    end
-    
+    api_key = { "event[app_id]" => @@api_key }
+    action = { "event[action]" => action }
+    # TODO what if user don't send hash? 
+    to_post = api_key.merge(actor).merge(action).merge(subject)
     @@http.set_form_data(to_post)
     
     Net::HTTP.new(@@uri.host, @@uri.port).start { |http| http.request(@@http) }
