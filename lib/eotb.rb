@@ -1,7 +1,22 @@
+require 'rubygems'
 require 'net/http'
 require 'uri'
-require 'rubygems'
 require 'json'
+
+require File.expand_path(File.dirname(__FILE__) + '/actor')
+require File.expand_path(File.dirname(__FILE__) + '/subject')
+
+class Object
+  
+  def to_actor(actor)
+    Actor.new(actor)
+  end
+  
+  def to_subject(subject)
+    Subject.new(subject)
+  end
+  
+end
 
 class Eotb
     
@@ -12,7 +27,7 @@ class Eotb
   end
   
   def self.register_event(actor, action, subject)
-    to_post = { "event[app_id]" => @@api_key, "event[actor][type]" => actor, "event[action]" => action }
+    to_post = {"event[app_id]" => @@api_key, "event[actor][type]" => actor, "event[action]" => action }
     subject.each do |key, value|
       to_post["event[subject][#{key.to_s}]"] = value.to_s
     end
