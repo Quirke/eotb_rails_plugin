@@ -8,12 +8,12 @@ require File.expand_path(File.dirname(__FILE__) + '/subject')
 
 class Object
   
-  def to_actor(actor)
-    Actor.new(actor)
+  def to_actor
+    Actor.new(self)
   end
   
-  def to_subject(subject)
-    Subject.new(subject)
+  def to_subject
+    Subject.new(self)
   end
   
 end
@@ -33,10 +33,6 @@ class Eotb
     end
     @@http.set_form_data(to_post)
     Net::HTTP.new(@@uri.host, @@uri.port).start { |http| http.request(@@http) }
-  end
-  
-  def to_json(array)
-    JSON.generate(array)
   end
   
 end

@@ -1,7 +1,7 @@
 class Actor
   
-  def initialize
-    
+  def initialize(object)
+    object.inspect
   end
   
 end
