@@ -1,0 +1,33 @@
+--- 
+hash: 3dbced1d1a21525620b773ff6f5ea1c928f6e9b4
+sources: 
+- Rubygems: 
+    uri: http://gemcutter.org
+specs: 
+- json_pure: 
+    version: 1.4.3
+- gemcutter: 
+    version: 0.5.0
+- git: 
+    version: 1.2.5
+- rubyforge: 
+    version: 2.0.4
+- jeweler: 
+    version: 1.4.0
+- json: 
+    version: 1.4.3
+- rspec: 
+    version: 1.3.0
+dependencies: 
+  jeweler: 
+    version: ">= 1.4.0"
+    group: 
+    - :default
+  json: 
+    version: ">= 1.4.3"
+    group: 
+    - :default
+  rspec: 
+    version: ">= 1.3.0"
+    group: 
+    - :default
