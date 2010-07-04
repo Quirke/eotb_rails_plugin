@@ -6,4 +6,8 @@ class EotbActor
     @actor = object.class.to_s
   end
   
+  def inspect
+    @actor.inspect
+  end
+  
 end
