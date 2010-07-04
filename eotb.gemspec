@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{eotb}
-  s.version = "0.1.5"
+  s.version = "0.2.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Ragnarson"]
-  s.date = %q{2010-07-04}
+  s.date = %q{2010-07-05}
   s.description = %q{Rails plugin which allow you easily track and observe your apps}
   s.email = %q{bartlomiej.kozal@ragnarson.com}
   s.extra_rdoc_files = [
@@ -26,10 +26,10 @@ Gem::Specification.new do |s|
      "Rakefile",
      "VERSION",
      "eotb.gemspec",
-     "lib/actor.rb",
      "lib/eotb.rb",
+     "lib/eotb_actor.rb",
+     "lib/eotb_subject.rb",
      "lib/object.rb",
-     "lib/subject.rb",
      "spec/eotb_spec.rb",
      "spec/spec_helper.rb"
   ]
