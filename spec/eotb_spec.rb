@@ -20,9 +20,9 @@ describe Eotb do
   end
   
   it "should register objects with to_actor and to_subject" do
-     Eotb.register_event(Object.new.to_actor, :action_symbol, Object.new.to_subject).code.should == @response
-   end
-  #  
+     Eotb.register_event(Object.new.to_actor, :action_symbol, {:username => Object.new}.to_subject).code.should == @response
+  end
+  
   #  it "should not register object without to_actor and to_subject" do
   #    Eotb.register_event(Object.new.to_actor, :action_symbol, Object.new.to_subject).code.should_not == @response
   #  end

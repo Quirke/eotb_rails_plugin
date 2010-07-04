@@ -4,7 +4,8 @@ require 'uri'
 require 'json'
 
 require File.expand_path(File.dirname(__FILE__) + '/object')
-require File.expand_path(File.dirname(__FILE__) + '/eotb_object')
+require File.expand_path(File.dirname(__FILE__) + '/eotb_actor')
+require File.expand_path(File.dirname(__FILE__) + '/eotb_subject')
 
 class Eotb
     
@@ -16,14 +17,12 @@ class Eotb
   
   def self.register_event(actor, action, subject = {})
     api_key = { "event[app_id]" => @@api_key }
-    actor = { "event[actor]" => actor }
     action = { "event[action]" => action }
-    subject.each do |key, value|
-       subject["event[subject][#{key.to_s}]"] = value.to_s
-    end
+    actor = { "event[actor]" => actor }
+    
+    subject.each { |key, value| subject["event[subject][#{key.to_s}]"] = value.to_s }
     
     event = api_key.merge(actor).merge(action).merge(subject)
-    
     @@post.set_form_data(event)
     Net::HTTP.new(@@uri.host, @@uri.port).start.request(@@post)
   end
