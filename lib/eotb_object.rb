@@ -1,4 +1,4 @@
-class Subject
+class EotbObject
   
   attr_reader :subject
   
@@ -15,10 +15,6 @@ class Subject
   def inspect
     @subject.inspect
   end
-
-  # TODO def to_hash
-  #   @subject = JSON.parse(@subject)  
-  # end
   
   def to_json
     @subject = JSON.generate(@subject)    
