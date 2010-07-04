@@ -1,9 +1,11 @@
 class Object
   
   def to_subject
-    EotbObject.new(self).subject
+    EotbSubject.new(self)
   end
   
-  alias :to_actor :to_subject
+  def to_actor
+    EotbActor.new(self)
+  end
   
 end
