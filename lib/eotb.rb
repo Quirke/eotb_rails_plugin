@@ -14,10 +14,16 @@ class Eotb
     @@api_key = api_key
   end
   
-  def self.register_event(actor, action, subject)
+  def self.register_event(actor, action, subject = {})
     api_key = { "event[app_id]" => @@api_key }
+    actor = { "event[actor]" => actor }
     action = { "event[action]" => action }
+    subject.each do |key, value|
+       subject["event[subject][#{key.to_s}]"] = value.to_s
+    end
+    
     event = api_key.merge(actor).merge(action).merge(subject)
+    
     @@post.set_form_data(event)
     Net::HTTP.new(@@uri.host, @@uri.port).start.request(@@post)
   end
