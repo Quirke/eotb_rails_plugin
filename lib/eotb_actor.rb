@@ -3,7 +3,7 @@ class EotbActor
   attr_reader :actor
   
   def initialize(object)
-    @actor = object.class.to_s
+    @actor = object.inspect
   end
   
   def inspect
