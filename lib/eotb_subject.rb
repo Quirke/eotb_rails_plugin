@@ -11,10 +11,6 @@ class EotbSubject
     @subject = JSON.generate(@subject)
   end
   
-  # def to_hash
-  #   @subject = JSON.parse(@subject)
-  # end
-  
   def inspect
     @subject.inspect
   end

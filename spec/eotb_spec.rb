@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 describe Eotb do
   
   before(:each) do
-    @response = "302"
+    @response = "200"
     Eotb.configure("4c3128cfb3dfae0b180000e8")
   end
   
@@ -26,9 +26,5 @@ describe Eotb do
   it "should generate JSON from subject" do
     {:username => "John"}.to_subject.to_json.should == JSON.generate({:username => "John"})
   end
-  
-  # it "should parse JSON from subject" do
-  #   {:username => "John"}.to_subject.to_json.to_hash.should == JSON.generate({:username => "String"})
-  # end
   
 end
