@@ -4,7 +4,7 @@ class EotbSubject
   
   def initialize(object)
     @subject = {}
-    @subject.merge(object).each { |key, value| subject[key] = value.inspect }
+    @subject.merge(object).each { |key, value| subject[key] = value.to_s }
   end
   
   def to_json
