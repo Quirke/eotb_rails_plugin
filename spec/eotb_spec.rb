@@ -4,7 +4,7 @@ describe Eotb do
   
   before(:each) do
     @response = "302"
-    Eotb.configure("4c30fc21b3dfae0b18000078")
+    Eotb.configure("4c3128cfb3dfae0b180000e8")
   end
   
   it "should register only two arguments" do
@@ -24,7 +24,7 @@ describe Eotb do
   end
   
   it "should generate JSON from subject" do
-    {:username => "John"}.to_subject.to_json.should == JSON.generate({:username => "String"})
+    {:username => "John"}.to_subject.to_json.should == JSON.generate({:username => "John"})
   end
   
   # it "should parse JSON from subject" do

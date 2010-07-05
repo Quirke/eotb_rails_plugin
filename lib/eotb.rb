@@ -19,10 +19,10 @@ class Eotb
     api_key = { "event[app_id]" => @@api_key }
     action = { "event[action]" => action }
     actor = { "event[actor]" => actor }
+    subject_to_post = {}
+    subject.each { |key, value| subject_to_post["event[subject][#{key.to_s}]"] = value.to_s }
     
-    subject.each { |key, value| subject["event[subject][#{key.to_s}]"] = value.to_s }
-    
-    event = api_key.merge(actor).merge(action).merge(subject)
+    event = api_key.merge(actor).merge(action).merge(subject_to_post)
     @@post.set_form_data(event)
     Net::HTTP.new(@@uri.host, @@uri.port).start.request(@@post)
   end

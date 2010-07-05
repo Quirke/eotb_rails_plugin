@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{eotb}
-  s.version = "0.2.0"
+  s.version = "0.2.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Ragnarson"]
@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.email = %q{bartlomiej.kozal@ragnarson.com}
   s.extra_rdoc_files = [
     "LICENSE",
-     "README"
+     "README.rdoc"
   ]
   s.files = [
     ".document",
@@ -22,7 +22,7 @@ Gem::Specification.new do |s|
      "Gemfile",
      "Gemfile.lock",
      "LICENSE",
-     "README",
+     "README.rdoc",
      "Rakefile",
      "VERSION",
      "eotb.gemspec",
