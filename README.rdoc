@@ -1,0 +1,74 @@
+= EotB Gem
+
+Rails plugin which allow you easily track and observe your apps.
+
+== Installation
+
+Install gem in traditional way
+
+	$ gem install eotb
+
+Install gem from GitHub repository
+
+	$ git clone git://github.com/Quirke/eotb_rails_plugin.git
+	$ cd eotb_rails_plugin
+	$ rake build
+	$ gem install ./pkg/eotb-0.2.0.gem
+
+Add this line to Gemfile in your rails application
+
+	gem 'eotb'
+
+And run
+
+	$ bundle install
+
+=== Getting API Key
+
+Create new account on Eotb website and add new application by clicking "Applications » Add application".
+As a result you will get API Key of your application.
+
+== Using in your apps
+
+Add file <tt>eotb.rb</tt> in directory <tt>config/initializers</tt> of your rails application with content:
+
+	require 'Eotb'
+	Eotb.configure("your_api_key", "host", "port") # default host and port are 127.0.0.1 and 3000
+
+Register events by:
+
+	Eotb.register_event("user", "did_sth", {:username => "John", :time => "12:39:00"}) # actor, action, subject
+
+=== Examples
+
+Register actor and his action
+	
+	Eotb.register_event("user", "registered")
+
+Register subject of event (<b>it must be a Hash!</b>)
+
+	Eotb.register_event("user", "registered", {:username => "John", :when => "today"})
+
+Use Symbols instead of Strings
+
+	Eotb.register_event(:admin, :deleted, {:what => "News", :category => "Ruby"})
+
+You can register any type of objects (for example Arrays) by using <tt>to_actor</tt> and <tt>to_subject</tt> methods
+
+	Eotb.register_event(["User", "Admin"].to_actor, :connected, {:values => [28, 3]}.to_subject)
+
+	Eotb.register_event(Object.new.to_actor, :fed, {:pet => Dog.new}.to_subject)
+
+Parse subject to JSON by
+
+	{:username => "John"}.to_subject.to_json
+
+And inspect your actors and subjects
+
+	"Josh".to_actor.inspect
+
+	{:username => "John"}.to_subject.inspect
+
+== Copyright
+
+Copyright (c) 2010 Ragnarson. See LICENSE for details.
