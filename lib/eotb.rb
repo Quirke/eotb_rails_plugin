@@ -3,10 +3,6 @@ require 'net/http'
 require 'uri'
 require 'json'
 
-require File.expand_path(File.dirname(__FILE__) + '/object')
-require File.expand_path(File.dirname(__FILE__) + '/eotb_actor')
-require File.expand_path(File.dirname(__FILE__) + '/eotb_subject')
-
 class Eotb
     
   def self.configure(api_key, host = '127.0.0.1', port = '3000')
