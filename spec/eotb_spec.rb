@@ -32,7 +32,7 @@ describe Eotb do
   end
   
   it "should register subject in json" do
-     Eotb.register_event([2,3,4], :action, "{\"username\":\"John\"}").code.should == @response
+     Eotb.register_event(:actor, :action, "{\"username\":\"John\"}").code.should == @response
   end
   
 end
