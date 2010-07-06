@@ -4,27 +4,35 @@ describe Eotb do
   
   before(:each) do
     @response = "200"
-    Eotb.configure("4c3128cfb3dfae0b180000e8")
+    Eotb.configure("4c333965b3dfae07bd00000d")
   end
   
-  it "should register only two arguments" do
-    Eotb.register_event("actor_string", "action_string").code.should == @response
+  it "should register two arguments" do
+    Eotb.register_event("actor", "action").code.should == @response
   end
   
-  it "should register default arguments (strings)" do
-    Eotb.register_event("actor_string", "action_string", {:username => "John"}).code.should == @response
+  it "should register three arguments" do
+    Eotb.register_event("actor", "action", {:username => "John"}).code.should == @response
   end
   
-  it "should register default arguments (symbols)" do
-    Eotb.register_event(:actor_symbol, :action_symbol, {:username => "John"}).code.should == @response
+  it "should register symbols" do
+    Eotb.register_event(:actor, :action, {:username => "John"}).code.should == @response
   end
   
-  it "should register objects with to_actor and to_subject" do
-     Eotb.register_event(Object.new.to_actor, :action_symbol, {:username => Object.new}.to_subject).code.should == @response
+  it "should register objects" do
+     Eotb.register_event(Object.new, :action, {:username => Object.new}).code.should == @response
+  end
+
+  it "should register hashes" do
+     Eotb.register_event({:type => "User"}, :action, {:username => "John"}).code.should == @response
   end
   
-  it "should generate JSON from subject" do
-    {:username => "John"}.to_subject.to_json.should == JSON.generate({:username => "John"})
+  it "should register arrays" do
+     Eotb.register_event([2,3,4], :action, {:username => ["John", "Josh"]}).code.should == @response
+  end
+  
+  it "should register subject in json" do
+     Eotb.register_event([2,3,4], :action, "{\"username\":\"John\"}").code.should == @response
   end
   
 end
