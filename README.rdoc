@@ -51,10 +51,9 @@ Register actor and his action
 	
 	Eotb.register_event("user", "registered")
 
-Register subject of event (<b>it must be a Hash or JSON string!</b>)
+Register subject of event (<b>it must be a Hash</b>)
 
 	Eotb.register_event("user", "registered", {:username => "John", :when => "today"})
-	Eotb.register_event("user", "registered", '{"username":"John", "when":"today"}')
 
 Use Symbols instead of Strings
 

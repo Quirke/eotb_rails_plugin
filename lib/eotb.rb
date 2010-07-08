@@ -12,34 +12,22 @@ class Eotb
   end
   
   def self.register_event(actor, action, subject = {})
-    event = @@api_key.merge(to_actor(actor)).merge(to_action(action)).merge(to_subject(subject))
+    actor = { "event[actor]" => format(actor) }
+    action = { "event[action]" => action.to_s }
+    data = {}
+    subject.each { |key, value| data["event[subject][#{key.to_s}]"] = format(value) }
+    
+    event = @@api_key.merge(actor).merge(action).merge(data)
+    
     @@post.set_form_data(event)
     Net::HTTP.new(@@uri.host, @@uri.port).start.request(@@post)
   end
   
-  def self.to_actor(actor)
-    { "event[actor]" => format(actor) }
-  end
-  
-  def self.to_action(action)
-    { "event[action]" => action.to_s }
-  end
-  
-  def self.to_subject(subject)
-    subject = JSON.parse subject if subject.is_a? String
-    subject_to_post = {} 
-    subject.each { |key, value| subject_to_post["event[subject][#{key.to_s}]"] = format(value) }
-    subject_to_post
-  end
-  
   def self.format(object)
-    object_class = object.class
-    if [String, Symbol].member? object_class
-      object.to_s
-    elsif [Array, Hash].member? object_class
-      object.inspect
+    if object.respond_to? :to_json
+      object.to_json
     else
-      object_class
+      object.inspect
     end
   end
   
