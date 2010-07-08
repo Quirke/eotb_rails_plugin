@@ -11,6 +11,7 @@ begin
     gem.homepage = "http://github.com/Quirke/eotb_rails_plugin"
     gem.authors = ["Ragnarson"]
     gem.add_development_dependency "rspec", ">= 1.3.0"
+    gem.add_development_dependency "jeweler", ">= 1.4.0"
     gem.add_dependency "json", ">= 1.4.3"
   end
 
