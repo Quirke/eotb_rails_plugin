@@ -3,6 +3,9 @@ require 'net/http'
 require 'uri'
 require 'json'
 
+require File.expand_path(File.dirname(__FILE__) + '/actor')
+require File.expand_path(File.dirname(__FILE__) + '/subject')
+
 class Eotb
     
   def self.configure(api_key, host = '127.0.0.1', port = '3000')
@@ -12,25 +15,12 @@ class Eotb
   end
   
   def self.register_event(actor, action, subject = {})
-    actor = { "event[actor]" => format(actor) }
     action = { "event[action]" => action.to_s }
-    data = {}
-    subject.each { |key, value| data["event[subject][#{key.to_s}]"] = format(value) }
     
-    event = @@api_key.merge(actor).merge(action).merge(data)
+    event = @@api_key.merge(Actor.new(actor).get).merge(action).merge(Subject.new(subject).get)
     
     @@post.set_form_data(event)
     Net::HTTP.new(@@uri.host, @@uri.port).start.request(@@post)
-  end
-  
-  def self.format(object)
-    if object.respond_to? :to_json
-      object.to_json
-    elsif object.respond_to? :to_hash
-        object.to_hash.to_json
-    else
-      object.inspect
-    end
   end
   
 end
