@@ -18,21 +18,29 @@ class Eotb
     Net::HTTP.new(@@uri.host, @@uri.port).start.request(@@post)
   end
   
-  # TODO
-  def self.format_hash(hash, type)
-    
-    def self.rec(value, key, path)
-      key = "[#{key.to_s}]"
-      path += key
-      if hash.respond_to? :each_pair
-        hash.each { |key, value| rec(value, key, path) }
+  def self.hash_flatten h
+    h.inject({}) do |a,(k,v)|
+      if v.is_a?(Hash)
+        hash_flatten(v).each do |sk, sv|
+          a[[k]+sk] = sv
+        end
       else
-        { "#{path}" => format(value) }
+        k = k ? [k] : []
+        a[k] = v
       end
+      a
     end
-    
-    data = {}
-    data.merge(rec(hash, type, "event"))
+  end
+
+  def self.format_hash h
+    if h.is_a?(Hash)
+      a = hash_flatten(h).map do |k,v|
+        key = k.map { |e| "[#{e}]" }.join "\"event[actor]#{key}\" => \"#{v}\""
+      end.join(', ')
+      eval '{' + a + '}'
+    else
+      format_hash({nil => h})
+    end
   end
   
   def self.format(object)
