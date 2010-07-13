@@ -8,15 +8,15 @@ describe Eotb do
   end
   
   it "should format actor in string" do
-    Eotb.format("actor").should == {"event[actor]" => "actor"}
+    Eotb.format_hash("actor").should == {"event[actor]" => "\"actor\""}
   end
   
   it "should format actor in hash" do
-    Eotb.format({:type => "User"}).should == {"event[actor][type]" => "User"}
+    Eotb.format_hash({:type => "User"}).should == {"event[actor][type]" => "\"User\""}
   end
   
   it "should format actor in nested hash" do
-    Eotb.format({:type => { :account => "User"}}).should == {"event[actor][type][account]" => "User"}
+    Eotb.format_hash({:type => { :account => "User"}}).should == {"event[actor][type][account]" => "\"User\""}
   end
   
   it "should register two arguments" do
