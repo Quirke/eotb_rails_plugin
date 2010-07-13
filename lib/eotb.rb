@@ -12,18 +12,27 @@ class Eotb
   end
   
   def self.register_event(actor, action, subject = {})
-    actor = { "event[actor]" => format(actor) }
-    action = { "event[action]" => action.to_s }
-    data = {}
-    subject.each { |key, value| data["event[subject][#{key.to_s}]"] = format(subject) }
-    
-    event = @@api_key.merge(actor).merge(action).merge(data)
+    action = { "event[action]" => action.to_s }    
+    event = @@api_key.merge(format_hash(actor, :actor)).merge(action).merge(format_hash(subject, :subject))
     @@post.set_form_data(event)
     Net::HTTP.new(@@uri.host, @@uri.port).start.request(@@post)
   end
   
-  def self.format_hash(hash)
+  # TODO
+  def self.format_hash(hash, type)
     
+    def self.rec(value, key, path)
+      key = "[#{key.to_s}]"
+      path += key
+      if hash.respond_to? :each_pair
+        hash.each { |key, value| rec(value, key, path) }
+      else
+        { "#{path}" => format(value) }
+      end
+    end
+    
+    data = {}
+    data.merge(rec(hash, type, "event"))
   end
   
   def self.format(object)
