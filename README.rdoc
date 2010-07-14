@@ -8,26 +8,26 @@ Rails plugin which allow you easily track and observe your apps.
 
 Install gem in traditional way
 
-	$ gem install eotb
+  $ gem install eotb
 
 === GitHub
 
 Install gem from GitHub repository
 
-	$ git clone git://github.com/Quirke/eotb_rails_plugin.git
-	$ cd eotb_rails_plugin
-	$ rake build
-	$ gem install ./pkg/eotb-0.4.2.gem
+  $ git clone git://github.com/Quirke/eotb_rails_plugin.git
+  $ cd eotb_rails_plugin
+  $ rake build
+  $ gem install ./pkg/eotb-0.4.2.gem
 
 === Bundler
 
 Add this line to Gemfile in your rails application
 
-	gem 'eotb'
+  gem 'eotb'
 
 And run
 
-	$ bundle install
+  $ bundle install
 
 == Getting API Key
 
@@ -38,31 +38,34 @@ As a result you will get API Key of your application.
 
 Add file <tt>eotb.rb</tt> in directory <tt>config/initializers</tt> of your rails application with content:
 
-	require 'Eotb'
-	Eotb.configure("your_api_key", "host", "port") # default host and port are 127.0.0.1 and 3000
+  require 'Eotb'
+  Eotb.configure("your_api_key", "host", "port") # default host and port are 127.0.0.1 and 3000
 
 Register events by:
 
-	Eotb.register_event("user", "did_sth", {:username => "John", :time => "12:39:00"}) # actor, action, subject
+  Eotb.register_event("user", "did_sth", {:username => "John", :time => "12:39:00"}) # actor, action, subject
 
 === Examples
 
 Register actor and his action
-	
-	Eotb.register_event("user", "registered")
 
-Register subject of event (<b>it must be a Hash</b>)
+  Eotb.register_event("user", "registered")
 
-	Eotb.register_event("user", "registered", {:username => "John", :when => "today"})
+Register subject of event
 
-Use Symbols instead of Strings
+  Eotb.register_event("user", "registered", {:username => "John", :when => "today"})
 
-	Eotb.register_event(:admin, :deleted, {:what => "News", :category => "Ruby"})
+Use symbols instead of strings
 
-You can register any type of objects (for example Arrays)
+  Eotb.register_event(:admin, :deleted, {:what => "News", :category => "Ruby"})
 
-	Eotb.register_event(["User", "Admin"], :connected, {:values => [28, 3]})
-	Eotb.register_event(Object.new, :fed, {:pet => Dog.new})
+Register hashes and nested hashes
+
+  Eotb.register_event({:username => "John", :mail => "john@example.com"}, :connected, {:with_values => {:a => 20, :b => 30}, :when => "Now"})
+
+You can register any type of objects
+
+  Eotb.register_event(Object.new, :fed, {:pet => Dog.new})
 
 == Copyright
 
