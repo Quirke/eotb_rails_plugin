@@ -13,37 +13,12 @@ class Eotb
   
   def self.register_event(actor, action, subject = {})
     action = { "event[action]" => action.to_s }    
-    event = @@api_key.merge(format_hash(actor, :actor)).merge(action).merge(format_hash(subject, :subject))
+    event = @@api_key.merge(hash_format(actor, :actor)).merge(action).merge(hash_format(subject, :subject))
     @@post.set_form_data(event)
     Net::HTTP.new(@@uri.host, @@uri.port).start.request(@@post)
   end
   
-  def self.hash_flatten h
-    h.inject({}) do |a,(k,v)|
-      if v.is_a?(Hash)
-        hash_flatten(v).each do |sk, sv|
-          a[[k]+sk] = sv
-        end
-      else
-        k = k ? [k] : []
-        a[k] = v
-      end
-      a
-    end
-  end
-
-  def self.format_hash h
-    if h.is_a?(Hash)
-      a = hash_flatten(h).map do |k,v|
-        key = k.map { |e| "[#{e}]" }.join "\"event[actor]#{key}\" => \"#{v}\""
-      end.join(', ')
-      eval '{' + a + '}'
-    else
-      format_hash({nil => h})
-    end
-  end
-  
-  def self.format(object)
+  def self.value_format(object)
     if object.respond_to? :to_actor
       object.to_actor
     elsif object.respond_to? :to_subject
@@ -55,6 +30,33 @@ class Eotb
     else
       object.inspect
     end
+  end
+  
+  def self.hash_flatten(hash)
+    hash.inject({}) do |h, (k, v)|
+      if v.is_a?(Hash)
+        hash_flatten(v).each do |sk, sv|
+          h[[k] + sk] = sv
+        end
+      else
+        k = k ? [k] : []
+        h[k] = v
+      end
+      h
+    end
+  end
+
+  def self.hash_format(hash, type)
+    if hash.is_a?(Hash)
+      a = hash_flatten(hash).map do |k, v|
+        key = k.map{ |e| "[#{e}]" }.join
+        "\"event[#{type}]#{key}\" => #{value_format(v)}"
+      end
+      a.join(', ')
+    else
+      a = "\"event[#{type}]\" => #{value_format(hash)}"
+    end
+    eval '{' + a + '}'
   end
   
 end
