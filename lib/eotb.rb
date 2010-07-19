@@ -18,17 +18,17 @@ class Eotb
     Net::HTTP.new(@@uri.host, @@uri.port).start.request(@@post)
   end
   
-  def self.value_format(object)
-    if object.respond_to? :to_actor
-      object.to_actor
-    elsif object.respond_to? :to_subject
-      object.to_subject
-    elsif object.respond_to? :to_json
-      object.to_json
-    elsif object.respond_to? :to_hash
-      object.to_hash
+  def self.value_format(value)
+    if value.respond_to? :to_actor
+      value.to_actor
+    elsif value.respond_to? :to_subject
+      value.to_subject
+    elsif value.respond_to? :to_json
+      value.to_json
+    elsif value.respond_to? :to_hash
+      value.to_hash
     else
-      object.inspect
+      value.inspect
     end
   end
   
@@ -56,7 +56,7 @@ class Eotb
     else
       a = "\"event[#{type}]\" => #{value_format(hash)}"
     end
-    eval '{' + a + '}'
+    eval('{' + a.to_s + '}')
   end
   
 end
