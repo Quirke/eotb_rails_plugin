@@ -20,7 +20,7 @@ class Eotb
   
   def self.value_format(value)
     methods = [:to_actor, :to_subject, :to_json, :to_hash, :inspect]
-    value.send(methods.find_all { |m| m if value.respond_to? m }.first)
+    value.send methods.find { |m| m if value.respond_to? m }
   end
   
   def self.hash_flatten(hash)
