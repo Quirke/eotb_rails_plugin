@@ -19,17 +19,8 @@ class Eotb
   end
   
   def self.value_format(value)
-    if value.respond_to? :to_actor
-      value.to_actor
-    elsif value.respond_to? :to_subject
-      value.to_subject
-    elsif value.respond_to? :to_json
-      value.to_json
-    elsif value.respond_to? :to_hash
-      value.to_hash
-    else
-      value.inspect
-    end
+    methods = [:to_actor, :to_subject, :to_json, :to_hash, :inspect]
+    value.send(methods.find_all { |m| m if value.respond_to? m }.first)
   end
   
   def self.hash_flatten(hash)
@@ -56,7 +47,7 @@ class Eotb
     else
       a = "\"event[#{type}]\" => #{value_format(hash)}"
     end
-    eval('{' + a.to_s + '}')
+    eval('{' + a. + '}')
   end
   
 end
