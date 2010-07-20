@@ -2,6 +2,7 @@ require 'rubygems'
 require 'net/http'
 require 'uri'
 require 'json'
+require 'active_support'
 
 class Eotb
     
@@ -40,15 +41,14 @@ class Eotb
 
   def self.hash_format(hash, type)
     if hash.is_a?(Hash)
-      a = hash_flatten(hash).map do |k, v|
+      h = hash_flatten(hash).map do |k, v|
         key = k.map{ |e| "[#{e}]" }.join
         "\"event[#{type}]#{key}\" => #{value_format(v)}"
-      end
-      a.join(', ')
+      end.join(', ')
     else
-      a = "\"event[#{type}]\" => #{value_format(hash)}"
+      h = "\"event[#{type}]\" => #{value_format(hash)}"
     end
-    eval('{' + a.to_s + '}')
+    eval "{#{h.to_s}}"
   end
   
 end
