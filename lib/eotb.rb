@@ -5,6 +5,8 @@ require 'json'
 
 class Eotb
     
+  METHODS = [:to_actor, :to_subject, :to_json, :to_hash, :inspect]
+    
   def self.configure(api_key, host = '127.0.0.1', port = '3000')
     @@uri = URI.parse('http://' + host + ':' + port + '/apps/' + api_key + '/events')
     @@post = Net::HTTP::Post.new(@@uri.path)
@@ -19,8 +21,7 @@ class Eotb
   end
   
   def self.value_format(value)
-    methods = [:to_actor, :to_subject, :to_json, :to_hash, :inspect]
-    value.send methods.find { |m| m if value.respond_to? m }
+    value.send METHODS.find { |m| m if value.respond_to? m }
   end
   
   def self.hash_flatten(hash)
@@ -47,7 +48,7 @@ class Eotb
     else
       a = "\"event[#{type}]\" => #{value_format(hash)}"
     end
-    eval('{' + a. + '}')
+    eval('{' + a.to_s + '}')
   end
   
 end
