@@ -12,14 +12,13 @@ class Eotb
   METHODS = [:to_actor, :to_subject, :to_json, :to_hash, :inspect]
     
   def self.configure(api_key, host = '127.0.0.1', port = '3000')
-    @@uri = URI.parse('http://' + host + ':' + port + '/apps/' + api_key + '/events')
+    @@uri = URI.parse('http://' + host + ':' + port + '/events/' + api_key)
     @@post = Net::HTTP::Post.new(@@uri.path)
-    @@api_key = { "event[app_id]" => api_key }
   end
   
   def self.register_event(actor, action, subject = {})
     action = { "event[action]" => action.to_s }    
-    event = @@api_key.merge(hash_format(actor, :actor)).merge(action).merge(hash_format(subject, :subject))
+    event = (hash_format(actor, :actor)).merge(action).merge(hash_format(subject, :subject))
     @@post.set_form_data(event)
     begin
     Timeout::timeout(2) {

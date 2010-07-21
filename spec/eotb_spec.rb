@@ -4,7 +4,7 @@ describe Eotb do
   
   before(:all) do
     @response = "200"
-    Eotb.configure("0"*24)
+    Eotb.configure("0"*40)
   end
   
   it "should format actor in string" do
