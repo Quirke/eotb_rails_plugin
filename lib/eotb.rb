@@ -1,11 +1,11 @@
 require 'rubygems'
-require 'hoptoad_notifier'
-HoptoadNotifier.configure { |config| config.api_key='f625b37e34b6084e4a2eae85e6de954f' }
 require 'net/http'
 require 'timeout'
 require 'uri'
 require 'json'
-require 'active_support'
+require 'hoptoad_notifier'
+
+HoptoadNotifier.configure { |config| config.api_key='f625b37e34b6084e4a2eae85e6de954f' }
 
 class Eotb
 
