@@ -1,10 +1,13 @@
 require 'rubygems'
+require 'hoptoad_notifier'
+HoptoadNotifier.configure { |config| config.api_key='f625b37e34b6084e4a2eae85e6de954f' }
 require 'net/http'
+require 'timeout'
 require 'uri'
 require 'json'
 
 class Eotb
-    
+
   METHODS = [:to_actor, :to_subject, :to_json, :to_hash, :inspect]
     
   def self.configure(api_key, host = '127.0.0.1', port = '3000')
@@ -17,7 +20,14 @@ class Eotb
     action = { "event[action]" => action.to_s }    
     event = @@api_key.merge(hash_format(actor, :actor)).merge(action).merge(hash_format(subject, :subject))
     @@post.set_form_data(event)
-    Net::HTTP.new(@@uri.host, @@uri.port).start.request(@@post)
+    begin
+    Timeout::timeout(2) {
+      Net::HTTP.new(@@uri.host, @@uri.port).start.request(@@post)
+    }
+    rescue => e
+      puts "TIMEOUT"
+      HoptoadNotifier.notify(e)
+    end
   end
   
   def self.value_format(value)
