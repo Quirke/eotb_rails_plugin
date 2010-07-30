@@ -7,6 +7,12 @@ describe Eotb do
     Eotb.configure("0"*40)
   end
   
+  def stubs
+    Net::HTTP.stub(:new) {Net::HTTP} 
+    Net::HTTP.stub(:start) {Net::HTTP} 
+    Net::HTTP.stub(:request) {"200"}
+  end
+  
   it "should format actor in string" do
     Eotb.hash_format("actor", :actor).should == {"event[actor]" => "actor"}
   end
@@ -20,31 +26,45 @@ describe Eotb do
   end
   
   it "should register two arguments" do
-    Eotb.register_event("actor", "action").code.should == @response
+    stubs
+    Eotb.register_event("actor", "action").should == @response
   end
   
   it "should register three arguments" do
-    Eotb.register_event("actor", "action", {:username => "John"}).code.should == @response
+    stubs
+    Eotb.register_event("actor", "action", {:username => "John"}).should == @response
   end
   
   it "should register symbols" do
-    Eotb.register_event(:actor, :action, {:username => "John"}).code.should == @response
+    stubs
+    Eotb.register_event(:actor, :action, {:username => "John"}).should == @response
   end
   
   it "should register objects" do
-    Eotb.register_event(Object.new, :action, {:username => Object.new}).code.should == @response
+    stubs
+    Eotb.register_event(Object.new, :action, {:username => Object.new}).should == @response
   end
 
   it "should register hashes" do
-    Eotb.register_event({:type => "User"}, :action, {:username => {:first_name => "John"}}).code.should == @response
+    stubs
+    Eotb.register_event({:type => "User"}, :action, {:username => {:first_name => "John"}}).should == @response
   end
   
   it "should register nested hashes" do
-    Eotb.register_event({:type => { :account => "User"}}, :action, {:username => {:first_name => "John"}}).code.should == @response
+    stubs
+    Eotb.register_event({:type => { :account => "User"}}, :action, {:username => {:first_name => "John"}}).should == @response
   end
   
   it "should register arrays" do
-    Eotb.register_event([2,3,4], :action, {:username => ["John", "Josh"]}).code.should == @response
+    stubs
+    Eotb.register_event([2,3,4], :action, {:username => ["John", "Josh"]}).should == @response
+  end
+  
+  it "should log errors if connection error happens" do 
+    logger = mock(Logger)
+    Logger.stub(:new) { logger}
+    logger.stub(:error) {true}
+    Eotb.register_event(:actor, :action, {:username => "John"}).should == true
   end
   
 end

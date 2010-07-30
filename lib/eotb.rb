@@ -25,8 +25,8 @@ class Eotb
       Net::HTTP.new(@@uri.host, @@uri.port).start.request(@@post)
     }
     rescue => e
-      puts "TIMEOUT"
-      HoptoadNotifier.notify(e)
+     	logger = Logger.new("log/#{ENV['RAILS_ENV']}.log")
+	    logger.error "ERROR eotb gem: " + e\
     end
   end
   
